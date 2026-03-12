@@ -1,0 +1,14 @@
+$test-color: rgb(255, 0, 0);
+
+.main-container {
+    margin: 32vh auto;
+
+    border: 1px solid $test-color;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    font-size: 4rem;
+}
