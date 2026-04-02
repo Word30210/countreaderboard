@@ -1,5 +1,9 @@
 $test-color: rgba(255, 0, 0, 50%);
 
+.numeric-tnum {
+    font-variant-numeric: tabular-nums; 
+}
+
 .body-div {
     margin: 0;
     padding: 0;
@@ -52,16 +56,16 @@ $test-color: rgba(255, 0, 0, 50%);
 
     overflow-y: auto;
 
-    border: 1px solid $test-color;
+    // border: 1px solid $test-color;
 }
 
 .leaderboard-navigation-bar {
-    padding: 4px;
+    padding: 4px 4px 4px 4px;
 
     width: 100%;
     height: 48px;
 
-    border: 1px solid $test-color;
+    // border: 1px solid $test-color;
 
     display: flex;
     flex-direction: row;
@@ -88,4 +92,48 @@ $test-color: rgba(255, 0, 0, 50%);
     width: 25%;
 
     // border: 1px solid $test-color;
+}
+
+.leaderboard-table {
+    width: 100%;
+    height: calc(100% - 48px);
+
+    // border: 1px solid $test-color;
+
+    overflow-y: auto;
+
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.leaderboard-item-holder {
+    margin: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+
+    // width: 100%;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+}
+
+.leaderboard-item-holder>span {
+    margin-right: 10px;
+
+    font-size: 20px;
+    line-height: 20px;
+}
+
+.leaderboard-item-flag {
+    margin-right: 10px;
+
+    width: 60px;
+    height: 40px;
+
+    object-fit: cover;
+
+    display: inline;
 }
