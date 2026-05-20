@@ -1,14 +1,13 @@
-import { createSignal } from 'solid-js'
 import { Router, Route } from '@solidjs/router'
 
 import Home from './pages/Home'
-import About from './pages/About'
+import Country from './pages/Country'
 
 function App() {
     return (
-        <Router>
+        <Router base={ import.meta.env.BASE_URL.replace(/\/$/, '') }>
             <Route path="/" component={ Home } />
-            <Route path="/about" component={ About } />
+            <Route path="/country/:code" component={ Country } />
         </Router>
     )
 }
