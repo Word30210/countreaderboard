@@ -1,0 +1,111 @@
+@mixin doodle-corners {
+    border-top-left-radius: 255px 15px;
+    border-top-right-radius: 15px 225px;
+    border-bottom-right-radius: 225px 15px;
+    border-bottom-left-radius: 15px 255px;
+}
+
+@mixin doodle-corners-small {
+    border-top-left-radius: 80px 8px;
+    border-top-right-radius: 8px 80px;
+    border-bottom-right-radius: 80px 8px;
+    border-bottom-left-radius: 8px 80px;
+}
+
+.dropdown {
+    position: relative;
+
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.dropdown-label {
+    margin: 0;
+
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.65;
+}
+
+.dropdown-button {
+    padding: 4px 12px;
+    margin: 0;
+
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+
+    background: transparent;
+    border: 2px solid var(--primary, #41403e);
+    @include doodle-corners;
+
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.4;
+    color: inherit;
+
+    cursor: pointer;
+    outline: none;
+}
+
+.dropdown-button:focus-visible {
+    box-shadow: 0 0 0 2px rgba(65, 64, 62, 0.25);
+}
+
+.dropdown-caret {
+    font-size: 10px;
+    opacity: 0.65;
+}
+
+.dropdown-panel {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    z-index: 50;
+
+    min-width: 100%;
+
+    padding: 6px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    background: var(--paper-bg-elevated, #fffdf6);
+    border: 2px solid var(--primary, #41403e);
+    @include doodle-corners;
+
+    box-shadow: 4px 5px 0 -2px rgba(65, 64, 62, 0.18);
+}
+
+.dropdown-option {
+    padding: 4px 12px;
+    margin: 0;
+
+    background: transparent;
+    border: 2px solid transparent;
+    @include doodle-corners-small;
+
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.5;
+    color: inherit;
+    text-align: left;
+    white-space: nowrap;
+
+    cursor: pointer;
+    outline: none;
+}
+
+.dropdown-option:hover {
+    border-color: var(--primary, #41403e);
+}
+
+.dropdown-option.is-selected {
+    border-color: var(--primary, #41403e);
+    font-weight: bold;
+}
