@@ -1,0 +1,12 @@
+:root {
+    --paper-bg: #fbf6e8;
+    --paper-bg-elevated: #fffdf6;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+
+    background-color: var(--paper-bg);
+    color: #41403e;
+}
