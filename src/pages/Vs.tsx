@@ -215,40 +215,37 @@ interface ComparisonRowProps {
 }
 
 const ComparisonRow = (props: ComparisonRowProps): JSXElement => {
-    const lv = getCategoryValue(props.left, props.def.key)
-    const rv = getCategoryValue(props.right, props.def.key)
-    const lr = props.ranks.ranks.get(props.left.cca3)
-    const rr = props.ranks.ranks.get(props.right.cca3)
-    const total = props.ranks.total
-    const dir = props.def.sortDir === "asc" ? 1 : -1
+    const leftValue = () => getCategoryValue(props.left, props.def.key)
+    const rightValue = () => getCategoryValue(props.right, props.def.key)
+    const leftRank = () => props.ranks.ranks.get(props.left.cca3)
+    const rightRank = () => props.ranks.ranks.get(props.right.cca3)
 
-    let leftBetter = false
-    let rightBetter = false
+    const winner = (): "left" | "right" | null => {
+        const lv = leftValue()
+        const rv = rightValue()
+        const dir = props.def.sortDir === "asc" ? 1 : -1
 
-    if (lv !== null && rv !== null) {
-        if (lv !== rv) {
-            if ((lv - rv) * dir > 0) rightBetter = true
-            else leftBetter = true
-        }
-    } else if (lv !== null) {
-        leftBetter = true
-    } else if (rv !== null) {
-        rightBetter = true
+        if (lv === null && rv === null) return null
+        if (lv === null) return "right"
+        if (rv === null) return "left"
+        if (lv === rv) return null
+
+        return (lv - rv) * dir > 0 ? "right" : "left"
     }
 
     const rankText = (rank: number | undefined): string =>
-        rank ? `#${ rank } of ${ total }` : "unranked"
+        rank ? `#${ rank } of ${ props.ranks.total }` : "unranked"
 
     return <div class="vs-row border border-2 border-primary">
         <div class="vs-row-label">{ props.def.label }</div>
         <div class="vs-row-cells">
-            <div class={ `vs-cell ${ leftBetter ? "is-winner" : "" }` }>
-                <span class="vs-cell-value numeric-tnum">{ formatValue(lv, props.def.key) }</span>
-                <span class="vs-cell-rank">{ rankText(lr) }</span>
+            <div class={ `vs-cell ${ winner() === "left" ? "is-winner" : "" }` }>
+                <span class="vs-cell-value numeric-tnum">{ formatValue(leftValue(), props.def.key) }</span>
+                <span class="vs-cell-rank">{ rankText(leftRank()) }</span>
             </div>
-            <div class={ `vs-cell ${ rightBetter ? "is-winner" : "" }` }>
-                <span class="vs-cell-value numeric-tnum">{ formatValue(rv, props.def.key) }</span>
-                <span class="vs-cell-rank">{ rankText(rr) }</span>
+            <div class={ `vs-cell ${ winner() === "right" ? "is-winner" : "" }` }>
+                <span class="vs-cell-value numeric-tnum">{ formatValue(rightValue(), props.def.key) }</span>
+                <span class="vs-cell-rank">{ rankText(rightRank()) }</span>
             </div>
         </div>
     </div>
