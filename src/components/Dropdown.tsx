@@ -4,10 +4,12 @@ import "./Dropdown.scss"
 export interface DropdownOption<T extends string = string> {
     value: T
     label: string
+    icon?: string
 }
 
 interface DropdownProps<T extends string = string> {
     label?: string
+    placeholder?: string
     value: T
     options: DropdownOption<T>[]
     onChange: (value: T) => void
@@ -26,9 +28,11 @@ export default function Dropdown<T extends string = string>(props: DropdownProps
         close()
     }
 
+    const selectedOption = () => props.options.find((o) => o.value === props.value)
+
     const selectedLabel = () => {
-        const match = props.options.find((o) => o.value === props.value)
-        return match ? match.label : ""
+        const match = selectedOption()
+        return match ? match.label : (props.placeholder ?? "")
     }
 
     onMount(() => {
@@ -65,7 +69,10 @@ export default function Dropdown<T extends string = string>(props: DropdownProps
             aria-haspopup="listbox"
             aria-expanded={ open() }
         >
-            <span class="dropdown-button-text">{ selectedLabel() }</span>
+            <Show when={ selectedOption()?.icon }>
+                { (icon) => <img class="dropdown-icon" src={ icon() } alt="" loading="lazy" /> }
+            </Show>
+            <span class={ `dropdown-button-text ${ !selectedOption() ? "is-placeholder" : "" }` }>{ selectedLabel() }</span>
             <span class="dropdown-caret">▼</span>
         </button>
 
@@ -78,7 +85,12 @@ export default function Dropdown<T extends string = string>(props: DropdownProps
                         role="option"
                         aria-selected={ option.value === props.value }
                         onClick={ () => pick(option.value) }
-                    >{ option.label }</button> }
+                    >
+                        <Show when={ option.icon }>
+                            { (icon) => <img class="dropdown-icon" src={ icon() } alt="" loading="lazy" /> }
+                        </Show>
+                        <span class="dropdown-option-label">{ option.label }</span>
+                    </button> }
                 </For>
             </div>
         </Show>

@@ -55,6 +55,7 @@ export default function Country() {
     return <div class="country-body">
         <div class="country-top-bar">
             <A href="/" class="paper-btn btn-secondary-outline">{ "<- Back to leaderboard" }</A>
+            <A href={ `/vs/${ params.code.toUpperCase() }` } class="paper-btn btn-primary">VS</A>
         </div>
 
         <Show

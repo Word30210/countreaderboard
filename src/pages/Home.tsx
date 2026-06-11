@@ -1,7 +1,7 @@
 import { For, JSXElement, Show, createMemo, createResource, createSignal } from "solid-js"
 import { useNavigate } from "@solidjs/router"
 
-import { Country, fetchCountries, latestGini, populationDensity } from "../data/countries"
+import { Country, fetchCountries, populationDensity } from "../data/countries"
 import Dropdown, { DropdownOption } from "../components/Dropdown"
 import "./Home.scss"
 
@@ -41,7 +41,7 @@ const getCategoryValue = (country: Country, category: Category): number | null =
     if (category === "area") return country.area || null
     if (category === "gdp") return country.gdp
     if (category === "density") return populationDensity(country)
-    if (category === "gini") return latestGini(country.gini)
+    if (category === "gini") return country.gini
     return null
 }
 
